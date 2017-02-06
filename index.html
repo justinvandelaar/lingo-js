@@ -3,10 +3,36 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="words-nl.js"></script>
 </head>
 <body>
-	<div class="test">
-		<p class="ok">Nutteloze tekst</p>
-	</div>
+	<div><input type="text" class="one" maxlength="1"></div>
+	<div><input type="text" class="one" maxlength="1"></div>
+	<div><input type="text" class="one" maxlength="1"></div>
+	<div><input type="text" class="one" maxlength="1"></div>
+	<div><input type="text" class="one" maxlength="1"></div> <br>
+	<button onclick="Check()"> Check Word</button>
 </body>
+
+<script type="text/javascript">
+
+	function Check() {
+	var rand = words[Math.floor(Math.random() * words.length)];
+	var x = document.getElementsByClassName("one");
+
+	for (i = 0, len = x; i < len; i++) {
+		var y = x[i.value];
+		console.log(y);
+	}
+
+	if (x === '') {
+		alert (words[0]);
+		console.log(x);
+	} else {
+		alert('Test')
+		console.log(x);
+	}
+}
+</script>
 </html>
