@@ -23,28 +23,47 @@
 
 	function Check() {
 		var x = document.getElementsByClassName("one");
-		var geheime_letters = rand.split("");
+		var geheime_letters = rand.split("");		
 		console.log(geheime_letters);
 
 		function isInArray(element, array) {
 			return element;
 		}
+
+	function arraysEqual(arr1, arr2) {
+   	if(arr1.length !== arr2.length)
+        return false;
+    	for(var i = arr1.length; i--;) {
+        	if(arr1[i] !== arr2[i]) 
+            return false;
+    	}
+
+    	return true;
+	}
+
 		for (var i = 0, len = x.length; i < len; i++) {
 			var geraden_letter = x[i].value;
 			var geheime_letter = geheime_letters[i];
-
+			
+			var a =  geraden_letter.indexOf(geheime_letter)
+			console.log(a);
+			if (geraden_letter == '' || geraden_letter === '') {
+				document.getElementsByClassName('one')[i].style.backgroundColor = 'white';
+			}
+			if (arraysEqual(geheime_letter, geraden_letter)) {
+				document.getElementsByClassName('one')[i].style.backgroundColor = 'yellow';
+				console.log('Yellow')
+			} else {
+				document.getElementsByClassName('one')[i].style.backgroundColor = 'white';
+			}
+			/*
+			if (geraden_letter != geheime_letters[i]) {
+				document.getElementsByClassName('one')[i].style.backgroundColor = 'white';
+			}
+			*/
 			if (geraden_letter === geheime_letter) {
 			  document.getElementsByClassName('one')[i].style.backgroundColor = 'red';
 			  console.log('Correct letter')
-			}
-			var a =  geheime_letter.indexOf(geraden_letter)
-			console.log(a)
-			if (a !== 0) {
-				document.getElementsByClassName('one')[i].style.backgroundColor = 'yellow';
-				console.log('In word but not correct postion')
-			}
-			if (geraden_letter != geheime_letters[i]) {
-				document.getElementsByClassName('one')[i].style.backgroundColor = 'white';
 			}
 		}
 
