@@ -16,23 +16,53 @@
 </body>
 
 <script type="text/javascript">
+	var rand = words[Math.floor(Math.random() * words.length)];
+	console.log('geheim woord: '+ rand);
+	var ok = document.getElementsByClassName("one")
+	ok[0].value = rand[0];
 
 	function Check() {
-	var rand = words[Math.floor(Math.random() * words.length)];
-	var x = document.getElementsByClassName("one");
+		var x = document.getElementsByClassName("one");
+		var geheime_letters = rand.split("");
+		console.log(geheime_letters);
 
-	for (i = 0, len = x; i < len; i++) {
-		var y = x[i.value];
-		console.log(y);
-	}
+		function isInArray(element, array) {
+			return element;
+		}
+		for (var i = 0, len = x.length; i < len; i++) {
+			var geraden_letter = x[i].value;
+			var geheime_letter = geheime_letters[i];
 
-	if (x === '') {
-		alert (words[0]);
-		console.log(x);
-	} else {
-		alert('Test')
-		console.log(x);
+			if (geraden_letter === geheime_letter) {
+			  document.getElementsByClassName('one')[i].style.backgroundColor = 'red';
+			  console.log('Correct letter')
+			}
+			var a =  geheime_letter.indexOf(geraden_letter)
+			console.log(a)
+			if (a !== 0) {
+				document.getElementsByClassName('one')[i].style.backgroundColor = 'yellow';
+				console.log('In word but not correct postion')
+			}
+			if (geraden_letter != geheime_letters[i]) {
+				document.getElementsByClassName('one')[i].style.backgroundColor = 'white';
+			}
+		}
+
+		/*
+		Rapport
+		.Inhoud
+		.Inleiding
+		.bv
+		.bewijzen
+		.Evulatie
+		.conclusie/nawoord
+
+		Voet en hoofd tekst
+		.pagina nmmr
+		.naam
+		.bedrijf
+		.aantal pagina`s
+		*/
 	}
-}
 </script>
 </html>
