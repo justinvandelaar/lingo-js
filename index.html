@@ -7,65 +7,98 @@
 	<script type="text/javascript" src="words-nl.js"></script>
 </head>
 <body>
-	<div><input type="text" class="one" maxlength="1"></div>
-	<div><input type="text" class="one" maxlength="1"></div>
-	<div><input type="text" class="one" maxlength="1"></div>
-	<div><input type="text" class="one" maxlength="1"></div>
-	<div><input type="text" class="one" maxlength="1"></div> <br>
-	<button onclick="Check()"> Check Word</button>
+<div id ="Lingo1">
+	<input type="text" class="one" maxlength="1">
+	<input type="text" class="one" maxlength="1">
+	<input type="text" class="one" maxlength="1">
+	<input type="text" class="one" maxlength="1">
+	<input type="text" class="one" maxlength="1">
+</div>
+<div id ="Lingo2">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+</div>
+<div id ="Lingo3">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+</div>
+<div id ="Lingo4">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+</div>
+<div id ="Lingo5">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+</div>
+	<input type="submit" onclick="Check()" value='Checkword'>
 </body>
 
 <script type="text/javascript">
+
 	var rand = words[Math.floor(Math.random() * words.length)];
-	console.log('geheim woord: '+ rand);
 	var ok = document.getElementsByClassName("one")
 	ok[0].value = rand[0];
 
+	function Disable(value) {
+		ok.disabled=true;
+		console.log(ok);
+	}
+	console.log(ok);
+
 	function Check() {
 		var x = document.getElementsByClassName("one");
-		var geheime_letters = rand.split("");		
-		console.log(geheime_letters);
+		var geheime_letters = rand.split("");	
 
-		function isInArray(element, array) {
-			return element;
-		}
-
-	function arraysEqual(arr1, arr2) {
-   	if(arr1.length !== arr2.length)
-        return false;
-    	for(var i = arr1.length; i--;) {
-        	if(arr1[i] !== arr2[i]) 
-            return false;
-    	}
-
-    	return true;
+	function isInArray(value, array) {
+  		return array.indexOf(value) > -1;
 	}
 
 		for (var i = 0, len = x.length; i < len; i++) {
 			var geraden_letter = x[i].value;
 			var geheime_letter = geheime_letters[i];
-			
-			var a =  geraden_letter.indexOf(geheime_letter)
-			console.log(a);
+
+			var stats =  geheime_letters.indexOf(geraden_letter);
+
+			if (stats === -1) {
+				document.getElementsByClassName('one')[i].style.backgroundColor = 'white';
+			} else {
+				document.getElementsByClassName('one')[i].style.backgroundColor = 'yellow';
+			}
 			if (geraden_letter == '' || geraden_letter === '') {
 				document.getElementsByClassName('one')[i].style.backgroundColor = 'white';
 			}
-			if (arraysEqual(geheime_letter, geraden_letter)) {
+			if (geraden_letter === geheime_letter) {
+			  document.getElementsByClassName('one')[i].style.backgroundColor = 'red';
+			  x[i].value = rand[i];
+			}
+		}
+
+			/*
+			var a =  geraden_letter.indexOf(geheime_letter)
+			console.log(a);
+			if (a === 0) {
 				document.getElementsByClassName('one')[i].style.backgroundColor = 'yellow';
 				console.log('Yellow')
 			} else {
 				document.getElementsByClassName('one')[i].style.backgroundColor = 'white';
+				console.log('white')
 			}
-			/*
 			if (geraden_letter != geheime_letters[i]) {
 				document.getElementsByClassName('one')[i].style.backgroundColor = 'white';
 			}
 			*/
-			if (geraden_letter === geheime_letter) {
-			  document.getElementsByClassName('one')[i].style.backgroundColor = 'red';
-			  console.log('Correct letter')
-			}
-		}
 
 		/*
 		Rapport
