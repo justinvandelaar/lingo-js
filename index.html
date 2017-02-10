@@ -8,64 +8,101 @@
 </head>
 <body>
 <div id ="Lingo1">
-	<input type="text" class="one" maxlength="1">
-	<input type="text" class="one" maxlength="1">
-	<input type="text" class="one" maxlength="1">
-	<input type="text" class="one" maxlength="1">
-	<input type="text" class="one" maxlength="1">
+	<input type="text" class="1" maxlength="1">
+	<input type="text" class="1" maxlength="1">
+	<input type="text" class="1" maxlength="1">
+	<input type="text" class="1" maxlength="1">
+	<input type="text" class="1" maxlength="1">
 </div>
 <div id ="Lingo2">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input type="text" class="2" readonly maxlength="1">
+	<input type="text" class="2" readonly maxlength="1">
+	<input type="text" class="2" readonly maxlength="1">
+	<input type="text" class="2" readonly maxlength="1">
+	<input type="text" class="2" readonly maxlength="1">
 </div>
 <div id ="Lingo3">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input type="text" class="3" readonly maxlength="1">
+	<input type="text" class="3" readonly maxlength="1">
+	<input type="text" class="3" readonly maxlength="1">
+	<input type="text" class="3" readonly maxlength="1">
+	<input type="text" class="3" readonly maxlength="1">
 </div>
 <div id ="Lingo4">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input type="text" class="4" readonly maxlength="1">
+	<input type="text" class="4" readonly maxlength="1">
+	<input type="text" class="4" readonly maxlength="1">
+	<input type="text" class="4" readonly maxlength="1">
+	<input type="text" class="4" readonly maxlength="1">
 </div>
 <div id ="Lingo5">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
-	<input onload='Disable(ok)' type="text" class="one" maxlength="1">
+	<input type="text" class="5" readonly maxlength="1">
+	<input type="text" class="5" readonly maxlength="1">
+	<input type="text" class="5" readonly maxlength="1">
+	<input type="text" class="5" readonly maxlength="1">
+	<input type="text" class="5" readonly maxlength="1">
 </div>
-	<input type="submit" onclick="Check()" value='Checkword'>
+	<input type="submit" onclick="check()" value='Checkword'>
 </body>
 
 <script type="text/javascript">
 
+	var numberOfSubmits = 1;
 	var rand = words[Math.floor(Math.random() * words.length)];
-	var ok = document.getElementsByClassName("one")
+	var ok = document.getElementsByClassName(numberOfSubmits)
 	ok[0].value = rand[0];
 
-	function Disable(value) {
-		ok.disabled=true;
-		console.log(ok);
-	}
-	console.log(ok);
+	function check() {
+		var currentLingoDiv = document.getElementById("Lingo" + numberOfSubmits).getElementsByTagName("input");
+		if (numberOfSubmits == 5) {
+			numberOfSubmits = 1;
+			alert('game over');
+		} else {
+			numberOfSubmits++;
+		}
+		var geheime_letters = rand.split("");
 
-	function Check() {
-		var x = document.getElementsByClassName("one");
-		var geheime_letters = rand.split("");	
+		for (var i = 0, len = currentLingoDiv.length; i < len; i ++) {
+				var geraden_letter = currentLingoDiv[i].value
+			    var geheime_letter = geheime_letters[i];
 
+				if (numberOfSubmits == 5) {
+				 	var weghalen = numberOfSubmitits = 1;
+				 	var div = document.getElementById("Lingo" + numberOfSubmits).getElementsByClassName(numberOfSubmits)[i];
+					div.removeAttribute("readonly");
+				 	console.log(div);
+				}
+				else {
+					var weghalen = numberOfSubmits + 1;
+					var div = document.getElementById("Lingo" + numberOfSubmits).getElementsByClassName(numberOfSubmits)[i];
+					div.removeAttribute("readonly");
+					console.log(div);
+				}
+			}
+		}
+/*
 	function isInArray(value, array) {
   		return array.indexOf(value) > -1;
 	}
 
+		//var x = document.getElementsByClassName(className);
+		var tweede = document.getElementsByClassName('two');
+		for (var c = 0, len = x.length; c < len; c++) {
+			if (tweede[c].length <= 0) {} 
+			else {
+				tweede[c].removeAttribute("readonly");
+			}
+		}
+
 		for (var i = 0, len = x.length; i < len; i++) {
+			console.dir(i);
+			console.dir(tweede[i]);
+			console.log(x[i]);
+			//tweede[i].setAttribute("class", "one");
+
+			//x[i].setAttribute("readOnly","true");
+
+			tweede[i].setAttribute("class", "one");
 			var geraden_letter = x[i].value;
 			var geheime_letter = geheime_letters[i];
 
@@ -84,7 +121,7 @@
 			  x[i].value = rand[i];
 			}
 		}
-
+	}
 			/*
 			var a =  geraden_letter.indexOf(geheime_letter)
 			console.log(a);
@@ -115,6 +152,5 @@
 		.bedrijf
 		.aantal pagina`s
 		*/
-	}
 </script>
 </html>
