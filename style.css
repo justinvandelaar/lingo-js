@@ -1,6 +1,11 @@
 body {
-	background-color: #0005d6; 
-	margin-left: 20%;
+  background-color: #0005d6; 
+  margin-left: 20%;
+  position:absolute;
+  top:25%;
+  left:45%;
+  margin-top:-50px; 
+  margin-left:-100px; 
 }
 
 input { 
