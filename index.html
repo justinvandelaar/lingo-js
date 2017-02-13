@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="words-nl.js"></script>
 </head>
 <body>
+<img src="img/lingo.png">
 <div id ="Lingo1">
 	<input type="text" class="1" maxlength="1">
 	<input type="text" class="1" maxlength="1">
@@ -42,7 +43,7 @@
 	<input type="text" class="5" readonly maxlength="1">
 	<input type="text" class="5" readonly maxlength="1">
 </div>
-	<input type="submit" onclick="check()" value='Checkword'>
+	<button onclick="check()"> Check Word ? </button>
 </body>
 
 <script type="text/javascript">
@@ -54,12 +55,7 @@
 
 	function check() {
 		var currentLingoDiv = document.getElementById("Lingo" + numberOfSubmits).getElementsByTagName("input");
-		if (numberOfSubmits == 5) {
-			numberOfSubmits = 1;
-			alert('game over');
-		} else {
-			numberOfSubmits++;
-		}
+
 		var geheime_letters = rand.split("");
 
 		for (var i = 0, len = currentLingoDiv.length; i < len; i ++) {
@@ -67,19 +63,48 @@
 			    var geheime_letter = geheime_letters[i];
 
 				if (numberOfSubmits == 5) {
+					var setRead = document.getElementById("Lingo" + numberOfSubmits).getElementsByClassName(numberOfSubmits)[i];
+					setRead.setAttribute("readonly", "true");
 				 	var weghalen = numberOfSubmitits = 1;
-				 	var div = document.getElementById("Lingo" + numberOfSubmits).getElementsByClassName(numberOfSubmits)[i];
-					div.removeAttribute("readonly");
-				 	console.log(div);
+				 	var div = document.getElementById("Lingo" + weghalen).getElementsByClassName(weghalen);
+					div[i].removeAttribute("readonly");
 				}
 				else {
+					var setRead = document.getElementById("Lingo" + numberOfSubmits).getElementsByClassName(numberOfSubmits)[i];
+					setRead.setAttribute("readonly", "true");
 					var weghalen = numberOfSubmits + 1;
-					var div = document.getElementById("Lingo" + numberOfSubmits).getElementsByClassName(numberOfSubmits)[i];
-					div.removeAttribute("readonly");
-					console.log(div);
+					var div = document.getElementById("Lingo" + weghalen).getElementsByClassName(weghalen);
+					div[i].removeAttribute("readonly");
+				}
+
+			var stats =  geheime_letters.indexOf(geraden_letter);
+
+				if (stats === -1) {
+					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'white';
+				} else {
+					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'yellow';
+				}
+				if (geraden_letter == '' || geraden_letter === '') {
+					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'white';
+				}
+				if (geraden_letter === geheime_letter) {
+				  var nextRow = document.getElementsByClassName(numberOfSubmits + 1);
+				  if (numberOfSubmits === 5) {
+				  	document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'red';
+				  } else {
+				  		nextRow[i].value = rand[i];
+				  		document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'red';
+					}
 				}
 			}
+
+		if (numberOfSubmits === 5) {
+			 location.reload();
+		} else {
+			numberOfSubmits++;
 		}
+
+	}
 /*
 	function isInArray(value, array) {
   		return array.indexOf(value) > -1;
@@ -143,7 +168,11 @@
 		.Inleiding
 		.bv
 		.bewijzen
-		.Evulatie
+		.Evulatie  --> Bedrijfs omegeving tegen school
+		Blijfen werken (Vakantie) waarom?
+		volgende sage (afstudeer stage) --> Moelijk, goed genoeg, wat?
+		waar ben ik het beste in
+		de rol van school
 		.conclusie/nawoord
 
 		Voet en hoofd tekst

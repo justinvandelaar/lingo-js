@@ -1,19 +1,16 @@
 body {
 	background-color: #0005d6; 
+	margin-left: 20%;
 }
 
-input:before {
-	width: 10%;
-	height: 40%;
-	margin-left: 40%;
-	margin-right: 40%;
-	display: inline;
+input { 
+   border: 1px outset blue;
+   height:50px;
+   width:50px;
+   cursor:pointer;
 }
 
-input:after {
-	width: 10%;
-	height: 40%;
-	margin-left: 40%;
-	margin-right: 40%;
-	display: inline;
+img {
+	width: 25%;
+	height: 90%;
 }
