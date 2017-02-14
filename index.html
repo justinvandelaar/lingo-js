@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="words-nl.js"></script>
 </head>
-<body>
+<body onload="firstLetter();">
 <img src="img/lingo.png">
 <div id ="Lingo1">
 	<input type="text" class="1" maxlength="1">
@@ -43,68 +43,8 @@
 	<input type="text" class="5" readonly maxlength="1">
 	<input type="text" class="5" readonly maxlength="1">
 </div>
-	<button onclick="check()"> Check Word ? </button>
+	<button onclick="checkWord()"> Check Word ? </button>
+	<button onclick="resetGame()"> Reset the game</button>
 </body>
-
-<script type="text/javascript">
-
-	var numberOfSubmits = 1;
-	var rand = words[Math.floor(Math.random() * words.length)];
-	var ok = document.getElementsByClassName(numberOfSubmits)
-	ok[0].value = rand[0];
-
-	function check() {
-		var currentLingoDiv = document.getElementById("Lingo" + numberOfSubmits).getElementsByTagName("input");
-
-		var geheime_letters = rand.split("");
-
-		for (var i = 0, len = currentLingoDiv.length; i < len; i ++) {
-				var geraden_letter = currentLingoDiv[i].value
-			    var geheime_letter = geheime_letters[i];
-
-				if (numberOfSubmits == 5) {
-					var setRead = document.getElementById("Lingo" + numberOfSubmits).getElementsByClassName(numberOfSubmits)[i];
-					setRead.setAttribute("readonly", "true");
-				 	var weghalen = numberOfSubmitits = 1;
-				 	var div = document.getElementById("Lingo" + weghalen).getElementsByClassName(weghalen);
-					div[i].removeAttribute("readonly");
-				}
-				else {
-					var setRead = document.getElementById("Lingo" + numberOfSubmits).getElementsByClassName(numberOfSubmits)[i];
-					setRead.setAttribute("readonly", "true");
-					var weghalen = numberOfSubmits + 1;
-					var div = document.getElementById("Lingo" + weghalen).getElementsByClassName(weghalen);
-					div[i].removeAttribute("readonly");
-				}
-
-			var stats =  geheime_letters.indexOf(geraden_letter);
-
-				if (stats === -1) {
-					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'white';
-				} else {
-					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'yellow';
-				}
-				if (geraden_letter == '' || geraden_letter === '') {
-					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'white';
-				}
-				if (geraden_letter === geheime_letter) {
-				  var nextRow = document.getElementsByClassName(numberOfSubmits + 1);
-				  if (numberOfSubmits === 5) {
-				  	document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'red';
-				  } else {
-				  		nextRow[i].value = rand[i];
-				  		document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'red';
-					}
-				}
-			}
-
-		if (numberOfSubmits === 5) {
-			 alert("Game Over Page is gonna refresh")
-			 location.reload();
-		} else {
-			numberOfSubmits++;
-		}
-
-	}
-</script>
+<script type="text/javascript" src="WordScript.js"></script>
 </html>
