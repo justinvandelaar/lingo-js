@@ -65,13 +65,19 @@ function checkWord() {
 					}
 				}
 				if (geheime_letters.allValuesSame()) {
-					winCheck();
+					var audioGoed = new Audio("sound/Lingo_Goed.mp3");
+					audioGoed.play();
+					wonGame();
 				}
 			}
 
 		if (numberOfSubmits === 5) {
-			 alert("Game Over the word was " + rand);
+			var audioDead = new Audio('sound/lingo_dead.mp3')
+			audioDead.play();
+			alert("Game Over the word was " + rand);
 		} else {
+			var audioLetter = new Audio('sound/lingo_letter.mp3')
+			audioLetter.play();
 			numberOfSubmits++;
 		}
 	}
@@ -80,7 +86,7 @@ function checkWord() {
 		location.reload();
 	}
 
-	function winCheck() {
+	function wonGame() {
 		alert("You have won and the word is " + rand)
 		var won = document.getElementsByTagName('input');
 		for (var whole = 0, len = won.length; whole < len; whole++) {
