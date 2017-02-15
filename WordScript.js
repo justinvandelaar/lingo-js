@@ -1,5 +1,16 @@
 var rand;
 var numberOfSubmits
+Array.prototype.allValuesSame = function() {
+
+    for(var i = 1; i < this.length; i++)
+    {
+        if(this[i] !== this[0])
+            return false;
+    }
+
+    return true;
+}
+
 function firstLetter(word) {
 	numberOfSubmits = 1;
 	rand = words[Math.floor(Math.random() * words.length)];
@@ -12,7 +23,6 @@ function checkWord() {
 		var currentLingoDiv = document.getElementById("Lingo" + numberOfSubmits).getElementsByTagName("input");
 
 		var geheime_letters = rand.split("");
-		var letterNumber = 0;
 
 		for (var i = 0, len = currentLingoDiv.length; i < len; i ++) {
 				var geraden_letter = currentLingoDiv[i].value
@@ -47,29 +57,33 @@ function checkWord() {
 				  var nextRow = document.getElementsByClassName(numberOfSubmits + 1);
 				  if (numberOfSubmits === 5) {
 				  		document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'red';
-				  		/*
-				        var splitLetters = geheime_letters.splice(i, 1);
-				        console.log(i)
-				        */
+				        var splitLetters = geheime_letters.splice(i, 1, "!");
 				  } else {
 				  		nextRow[i].value = rand[i];
 				  		document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'red';
-				  		/*
-				        var splitLetters = geheime_letters.splice(i, 1);
-				        console.log(i)
-				        */
+				        var splitLetters = geheime_letters.splice(i, 1, "!");
 					}
+				}
+				if (geheime_letters.allValuesSame()) {
+					winCheck();
 				}
 			}
 
 		if (numberOfSubmits === 5) {
-			 alert("Game Over")
+			 alert("Game Over the word was " + rand);
 		} else {
 			numberOfSubmits++;
 		}
-		console.log(geheime_letters);
 	}
 
 	function resetGame() {
 		location.reload();
+	}
+
+	function winCheck() {
+		alert("You have won and the word is " + rand)
+		var won = document.getElementsByTagName('input');
+		for (var whole = 0, len = won.length; whole < len; whole++) {
+			won[whole].setAttribute("readonly", "true");
+		}
 	}
