@@ -17,7 +17,7 @@ function firstLetter(word) {
 	this.word = rand;
 	var ok = document.getElementsByClassName(numberOfSubmits)
 	ok[0].value = rand[0];
-};
+}
 
 function checkWord() {
 		var currentLingoDiv = document.getElementById("Lingo" + numberOfSubmits).getElementsByTagName("input");
@@ -46,32 +46,30 @@ function checkWord() {
 			var stats =  geheime_letters.indexOf(geraden_letter);
 
 				if (stats === -1) {
-					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'white';
+					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = '#c2f2f2';
 				} else {
-					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'yellow';
+					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = '#f9a11c';
 				}
 				if (geraden_letter == '' || geraden_letter === '') {
-					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'white';
+					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = '#c2f2f2';
 				}
 				if (geraden_letter === geheime_letter) {
 				  var nextRow = document.getElementsByClassName(numberOfSubmits + 1);
 				  if (numberOfSubmits === 5) {
-				  		document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'red';
+				  		document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = '#f24c27';
 				        var splitLetters = geheime_letters.splice(i, 1, "!");
 				  } else {
 				  		nextRow[i].value = rand[i];
-				  		document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = 'red';
+				  		document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = '#f24c27';
 				        var splitLetters = geheime_letters.splice(i, 1, "!");
 					}
 				}
-				if (geheime_letters.allValuesSame()) {
-					var audioGoed = new Audio("sound/Lingo_Goed.mp3");
-					audioGoed.play();
-					wonGame();
-				}
 			}
 
-		if (numberOfSubmits === 5) {
+		if (geheime_letters.allValuesSame()) {
+			wonGame();
+		}
+		else if (numberOfSubmits === 5) { 
 			var audioDead = new Audio('sound/lingo_dead.mp3')
 			audioDead.play();
 			alert("Game Over the word was " + rand);
@@ -87,6 +85,8 @@ function checkWord() {
 	}
 
 	function wonGame() {
+		var audioGoed = new Audio("sound/Lingo_Goed.mp3");
+		audioGoed.play();
 		alert("You have won and the word is " + rand)
 		var won = document.getElementsByTagName('input');
 		for (var whole = 0, len = won.length; whole < len; whole++) {
