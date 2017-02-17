@@ -1,10 +1,12 @@
 var rand;
 var numberOfSubmits;
-if (localStorage.score) {}
+if (localStorage.score) {
+	document.getElementById('score').innerHTML =  localStorage.score;
+}
 	else {
 	localStorage.score = 0;
+	document.getElementById('score').innerHTML =  localStorage.score;
 }
-document.getElementById('score').innerHTML = localStorage.score;
 
 function allValuesSame(pArray) {
     for(var i = 1; i < pArray.length; i++)
@@ -52,7 +54,7 @@ function checkWord() {
 				nodeList[i].style.backgroundColor = '#c2f2f2';
 			} else {
 				nodeList[i].style.backgroundColor = '#f9a11c';
-			  	Number(localStorage.score) + 50
+			  	localStorage.score = Number(localStorage.score) + 50
 			}
 			if (geraden_letter == '' || geraden_letter === '') {
 				nodeList[i].style.backgroundColor = '#c2f2f2';
@@ -61,17 +63,19 @@ function checkWord() {
 			  var nextRow = document.getElementsByClassName(numberOfSubmits + 1);
 			  if (numberOfSubmits === 5) {
 			  		nodeList[i].style.backgroundColor = '#f24c27';
-			  		Number(localStorage.score) + 150;
+			  		localStorage.score = Number(localStorage.score) + 150;
 			        var splitLetters = geheime_letters.splice(i, 1, "!");
 			  } else {
 			  		nextRow[i].value = rand[i];
 			  		nodeList[i].style.backgroundColor = '#f24c27';
-			  		Number(localStorage.score) + 150;
+			  		localStorage.score = Number(localStorage.score) + 150;
 			        var splitLetters = geheime_letters.splice(i, 1, "!");
 				}
 			}
 		}
 
+
+		document.getElementById('score').innerHTML = localStorage.score;
 		if (allValuesSame(geheime_letters)) {
 			setTimeout(wonGame(), 5000);
 		}
