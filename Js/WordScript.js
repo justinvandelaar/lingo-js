@@ -1,13 +1,17 @@
 var rand;
-var numberOfSubmits
-Array.prototype.allValuesSame = function() {
+var numberOfSubmits;
+if (localStorage.score) {}
+	else {
+	localStorage.score = 0;
+}
+document.getElementById('score').innerHTML = localStorage.score;
 
-    for(var i = 1; i < this.length; i++)
+function allValuesSame(pArray) {
+    for(var i = 1; i < pArray.length; i++)
     {
-        if(this[i] !== this[0])
+        if(pArray[i] !== pArray[0])
             return false;
     }
-
     return true;
 }
 
@@ -20,54 +24,56 @@ function firstLetter(word) {
 }
 
 function checkWord() {
-		var currentLingoDiv = document.getElementById("Lingo" + numberOfSubmits).getElementsByTagName("input");
+		var elemenLingo = document.getElementById("Lingo" + numberOfSubmits);
+		var currentLingoDiv = elemenLingo.getElementsByTagName("input");
+		var nodeList = document.getElementsByClassName(numberOfSubmits);
 
 		var geheime_letters = rand.split("");
 
 		for (var i = 0, len = currentLingoDiv.length; i < len; i ++) {
-				var geraden_letter = currentLingoDiv[i].value
-			    var geheime_letter = geheime_letters[i];
+			var geraden_letter = currentLingoDiv[i].value
+		    var geheime_letter = geheime_letters[i];
 
-				if (numberOfSubmits == 5) {
-					var setRead = document.getElementById("Lingo" + numberOfSubmits).getElementsByClassName(numberOfSubmits)[i];
-					setRead.setAttribute("readonly", "true");
-				 	var weghalen = numberOfSubmitits = 1;
-				 	var div = document.getElementById("Lingo" + weghalen).getElementsByClassName(weghalen);
-					div[i].removeAttribute("readonly");
-				}
-				else {
-					var setRead = document.getElementById("Lingo" + numberOfSubmits).getElementsByClassName(numberOfSubmits)[i];
-					setRead.setAttribute("readonly", "true");
-					var weghalen = numberOfSubmits + 1;
-					var div = document.getElementById("Lingo" + weghalen).getElementsByClassName(weghalen);
-					div[i].removeAttribute("readonly");
-				}
+			if (numberOfSubmits == 5) {
+				var setRead = elemenLingo.getElementsByClassName(numberOfSubmits)[i];
+				setRead.setAttribute("readonly", "true");
+			}
+			else {
+				var setRead = elemenLingo.getElementsByClassName(numberOfSubmits)[i];
+				setRead.setAttribute("readonly", "true");
+				var weghalen = numberOfSubmits + 1;
+				var div = document.getElementById("Lingo" + weghalen).getElementsByClassName(weghalen);
+				div[i].removeAttribute("readonly");
+			}
 
 			var stats =  geheime_letters.indexOf(geraden_letter);
 
-				if (stats === -1) {
-					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = '#c2f2f2';
-				} else {
-					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = '#f9a11c';
-				}
-				if (geraden_letter == '' || geraden_letter === '') {
-					document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = '#c2f2f2';
-				}
-				if (geraden_letter === geheime_letter) {
-				  var nextRow = document.getElementsByClassName(numberOfSubmits + 1);
-				  if (numberOfSubmits === 5) {
-				  		document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = '#f24c27';
-				        var splitLetters = geheime_letters.splice(i, 1, "!");
-				  } else {
-				  		nextRow[i].value = rand[i];
-				  		document.getElementsByClassName(numberOfSubmits)[i].style.backgroundColor = '#f24c27';
-				        var splitLetters = geheime_letters.splice(i, 1, "!");
-					}
+			if (stats === -1) {
+				nodeList[i].style.backgroundColor = '#c2f2f2';
+			} else {
+				nodeList[i].style.backgroundColor = '#f9a11c';
+			  	Number(localStorage.score) + 50
+			}
+			if (geraden_letter == '' || geraden_letter === '') {
+				nodeList[i].style.backgroundColor = '#c2f2f2';
+			}
+			if (geraden_letter === geheime_letter) {
+			  var nextRow = document.getElementsByClassName(numberOfSubmits + 1);
+			  if (numberOfSubmits === 5) {
+			  		nodeList[i].style.backgroundColor = '#f24c27';
+			  		Number(localStorage.score) + 150;
+			        var splitLetters = geheime_letters.splice(i, 1, "!");
+			  } else {
+			  		nextRow[i].value = rand[i];
+			  		nodeList[i].style.backgroundColor = '#f24c27';
+			  		Number(localStorage.score) + 150;
+			        var splitLetters = geheime_letters.splice(i, 1, "!");
 				}
 			}
+		}
 
-		if (geheime_letters.allValuesSame()) {
-			wonGame();
+		if (allValuesSame(geheime_letters)) {
+			setTimeout(wonGame(), 5000);
 		}
 		else if (numberOfSubmits === 5) { 
 			var audioDead = new Audio('sound/lingo_dead.mp3')
@@ -85,11 +91,12 @@ function checkWord() {
 	}
 
 	function wonGame() {
-		var audioGoed = new Audio("sound/Lingo_Goed.mp3");
-		audioGoed.play();
 		alert("You have won and the word is " + rand)
 		var won = document.getElementsByTagName('input');
 		for (var whole = 0, len = won.length; whole < len; whole++) {
 			won[whole].setAttribute("readonly", "true");
 		}
+		window.location.href = "ballen.html"
+		var audioGoed = new Audio("sound/Lingo_Goed.mp3");
+		audioGoed.play();
 	}
