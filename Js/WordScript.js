@@ -1,5 +1,7 @@
 var rand;
 var numberOfSubmits;
+var geheime_letters;
+
 if (localStorage.score) {
 	document.getElementById('score').innerHTML =  localStorage.score;
 }
@@ -23,6 +25,7 @@ function firstLetter(word) {
 	this.word = rand;
 	var ok = document.getElementsByClassName(numberOfSubmits)
 	ok[0].value = rand[0];
+	geheime_letters = rand.split("");
 }
 
 function checkWord() {
@@ -30,12 +33,13 @@ function checkWord() {
 		var currentLingoDiv = elemenLingo.getElementsByTagName("input");
 		var nodeList = document.getElementsByClassName(numberOfSubmits);
 
-		var geheime_letters = rand.split("");
+		var voorkomende_letters = rand.split("");
 
 		for (var i = 0, len = currentLingoDiv.length; i < len; i ++) {
 			var geraden_letter = currentLingoDiv[i].value
 		    var geheime_letter = geheime_letters[i];
 
+		    // check of game ends; disable non active rows
 			if (numberOfSubmits == 5) {
 				var setRead = elemenLingo.getElementsByClassName(numberOfSubmits)[i];
 				setRead.setAttribute("readonly", "true");
@@ -51,29 +55,30 @@ function checkWord() {
 			var stats =  geheime_letters.indexOf(geraden_letter);
 
 			if (stats === -1) {
-				nodeList[i].style.backgroundColor = '#c2f2f2';
+				nodeList[i].style.backgroundColor = '#c2f2f2';	// blauw
 			} else {
-				nodeList[i].style.backgroundColor = '#f9a11c';
+				nodeList[i].style.backgroundColor = '#f9a11c';  // oranje
 			  	localStorage.score = Number(localStorage.score) + 50
 			}
-			if (geraden_letter == '' || geraden_letter === '') {
-				nodeList[i].style.backgroundColor = '#c2f2f2';
+			if (geraden_letter === '') {
+				nodeList[i].style.backgroundColor = '#c2f2f2';	// blauw
 			}
 			if (geraden_letter === geheime_letter) {
 			  var nextRow = document.getElementsByClassName(numberOfSubmits + 1);
-			  if (numberOfSubmits === 5) {
-			  		nodeList[i].style.backgroundColor = '#f24c27';
-			  		localStorage.score = Number(localStorage.score) + 150;
-			        var splitLetters = geheime_letters.splice(i, 1, "!");
-			  } else {
-			  		nextRow[i].value = rand[i];
-			  		nodeList[i].style.backgroundColor = '#f24c27';
-			  		localStorage.score = Number(localStorage.score) + 150;
-			        var splitLetters = geheime_letters.splice(i, 1, "!");
-				}
+			  	if (numberOfSubmits !== 5) { nextRow[i].value = rand[i]; }
+			  	nodeList[i].style.backgroundColor = '#f24c27'; // rood
+			  	localStorage.score = Number(localStorage.score) + 150;
+			    var splitLetters = geheime_letters.splice(i, 1, "!");
+			    // var splitLetters = geheime_letters.slice
+			    var destroyLetter = voorkomende_letters.splice(i, 1, "!")
+			}
+			if (geheime_letters[i] === '!') { 
+				var nextRow = document.getElementsByClassName(numberOfSubmits + 1);
+				if (numberOfSubmits !== 5) { nextRow[i].value = rand[i]; }
+				nodeList[i].style.backgroundColor = '#f24c27'; // rood
+			  	localStorage.score = Number(localStorage.score) + 150;
 			}
 		}
-
 
 		document.getElementById('score').innerHTML = localStorage.score;
 		if (allValuesSame(geheime_letters)) {
